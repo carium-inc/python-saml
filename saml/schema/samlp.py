@@ -172,7 +172,7 @@ class AuthenticationRequest(_Message):
     # TODO: scoping = Element(Scoping)
 
 
-class StatusCode(Base):
+class StatusCodeBase(Base):
 
     # URI prefix for the values in this enumeration.
     _PREFIX = "urn:oasis:names:tc:SAML:2.0:status:"
@@ -251,6 +251,19 @@ class StatusCode(Base):
     # A subordinate status code that provides more specific information
     # on an error condition.
     # TODO: code = Element('self')
+
+
+class SubordinateStatusCode(StatusCodeBase):
+    """
+        Nested StatusCode within a parent StatusCode per
+        MS-SAMLPR 3.1.4.7.2 Element <StatusCode>.
+    """
+    class Meta:
+        name = 'StatusCode'
+
+
+class StatusCode(StatusCodeBase):
+    subordinate_codes = Element(SubordinateStatusCode, collection=True)
 
 
 class Status(Base):
