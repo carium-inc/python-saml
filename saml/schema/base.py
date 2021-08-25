@@ -176,7 +176,7 @@ class Element(Component):
     def prepare(self, instance):
         # Retrieve the value of this attribute from the instance.
         value = instance._state.get(self._name)
-        if value is None and self.default:
+        if value is None and self.default and self.default() is not None:
             # No value; use the default callable.
             self.__set__(instance, self.default())
             value = instance._state.get(self._name)
