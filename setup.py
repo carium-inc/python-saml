@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from importlib.machinery import SourceFileLoader
 from setuptools import setup, find_packages
-from imp import load_source
+
 
 setup(
     name='saml',
-    version=load_source('', 'saml/_version.py').__version__,
+    version=SourceFileLoader("", "saml/_version.py").load_module().__version__,
     description='A python interface to produce and consume Security '
                 'Assertion Markup Language (SAML) v2.0 messages.',
     classifiers=[
